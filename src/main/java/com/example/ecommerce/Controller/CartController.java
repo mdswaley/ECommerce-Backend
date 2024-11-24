@@ -12,13 +12,18 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/cart")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class CartController {
     private final CartService cartService;
 
-    @PostMapping(path = "{user_id}/UserAddProduct/{pro_id}")
-    public ResponseEntity<String> addProductToCart(@PathVariable Long user_id, @PathVariable Long pro_id){
-        cartService.addProductToCart(user_id, pro_id);
-        return new ResponseEntity<>("Product added to cart successfully!", HttpStatus.CREATED);
+    @PostMapping("/{userId}/UserAddProduct/{productId}")
+    public ResponseEntity<?> addToCart(@PathVariable("userId") Long userId, @PathVariable("productId") Long productId) {
+        try {
+            cartService.addProductToCart(userId, productId);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Product added to cart successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding product to cart: " + e.getMessage());
+        }
     }
 
     @GetMapping(path = "/getCartByUser/{user_id}")

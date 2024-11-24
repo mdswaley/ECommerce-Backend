@@ -25,6 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
     private final UserService userService;
     private final AuthService authService;
@@ -41,7 +42,7 @@ public class AuthController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginDto loginDto, HttpServletResponse response){
         LoginResponseDto loginResponseDto = authService.login(loginDto);
