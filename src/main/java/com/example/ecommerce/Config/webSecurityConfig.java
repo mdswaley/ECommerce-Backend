@@ -19,7 +19,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class webSecurityConfig {
     private final JwtAuthFilter jwtAuthFilter;
     private final String[] permitRout = {
-            "/auth/**","/product/**","/cart/**"
+            "/auth/**","/product/**","/cart/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
+            "/webjars/**", "/"
     };
 
     @Bean
@@ -30,6 +31,7 @@ public class webSecurityConfig {
                         .anyRequest().authenticated())
 
                 .csrf(AbstractHttpConfigurer::disable)
+
                 .sessionManagement(sessionConfig->sessionConfig
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

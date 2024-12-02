@@ -14,7 +14,7 @@ public class ProductDTO {
     @NotNull(message = "Should pass name.")
     @NotEmpty(message = "should greater then Zero")
     @NotBlank(message = "Should pass the String")
-    @Size(min = 3 , max = 10, message = "name should be in the range of [3,11]")
+    @Size(min = 3 , max = 20, message = "name should be in the range of [3,11]")
     private String name;
 
     @Min(value = 1,message = "sku should be greater then 1")
